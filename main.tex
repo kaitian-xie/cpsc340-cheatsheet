@@ -15,6 +15,9 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.2\baselineskip}
 
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\argmax}{argmax}
+
 \begin{document}
 \footnotesize
 \begin{multicols*}{5}
@@ -90,6 +93,12 @@ Convexity:
     \item max of convex is convex
     \item composition of a convex function and linear function is convex
     \item \emph{BUT} composition of a convex function and another convex function may not be convex
+\end{itemize}
+Maximum Likelihood Estimation (MLE):
+\begin{itemize}
+    \item minimizing NLL
+    \item \(f(x) = - \sum_{i=1}^{n}\log{(p(y_i|x_i,w))}\)
+    \item runtime: \(O(nd)\)
 \end{itemize}
 
 \section{Some Tips}
