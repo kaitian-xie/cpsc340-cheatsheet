@@ -47,6 +47,7 @@
 \section{Data Standardization}
 \begin{itemize}
     \item \(\mu \) = mean of \(X_j\) and \(y\), \(\sigma \) = std of \(X_j\) and \(y\)
+    \item \(x_i = x_i - \frac{\mu}{\sigma}\)
     \item use the \(\mu \) and \(\sigma \) from training data on test data
 \end{itemize}
 
@@ -79,6 +80,17 @@ Objective functions and derivatives:
 \begin{align*}
     f(w) = ||Z(Xw - y)||_1 + \lambda ||w||_{\infty}
 \end{align*}
+Convexity:
+\begin{itemize}
+    \item \(f''(x) \geq 0 \Rightarrow \) convex
+    \item a convex function multiplied by a non-negative constant is convex
+    \item norms and squared norms are convex
+    \item \(\exp()\) is convex
+    \item sum of convex functions is convex
+    \item max of convex is convex
+    \item composition of a convex function and linear function is convex
+    \item \emph{BUT} composition of a convex function and another convex function may not be convex
+\end{itemize}
 
 \section{Some Tips}
 \begin{itemize}
