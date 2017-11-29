@@ -55,6 +55,20 @@
     \item use the \(\mu \) and \(\sigma \) from training data on test data
 \end{itemize}
 
+\section{PCA}
+\begin{dmath*}
+    f(W,Z) = \sum_{i=1}^{n} \sum_{j=1}^{d} (w_j^\intercal z_i - x_{ij})^2 + \frac{\lambda_W}{2} ||W|_F^2 \frac{\lambda_Z}{2} ||Z||_F^2
+\end{dmath*}
+Trade-off:
+\begin{itemize}
+    \item reduce overfitting when \emph{both} W and Z are regularized
+    % TODO: 2016 Final Q8 (d)
+\end{itemize}
+Note:
+\begin{itemize}
+    \item \(ZW = (-Z)(-W)\) (same prediction)
+\end{itemize}
+
 \section{Neural Networks}
 \begin{dmath*}
     f(W^{(1)},W^{(2)}) = \frac{1}{2} \sum_{i=i}^{n} (w^\intercal h(W^{(2)}h(W^{(1)}x_i))-y_i)^2 + \frac{\lambda}{2}||w||^2 + \frac{\lambda_1}{2} ||W^{(1)}||_F^2 + \frac{\lambda_2}{2} ||W^{(2)}||_F^2
