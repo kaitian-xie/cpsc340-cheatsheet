@@ -26,6 +26,12 @@
 % TODO: 2016_valid Q1 pseudocode
 
 % TODO: different validation techniques
+Model Selection:
+\begin{itemize}
+    \item optimization bias is small when a few models are compared
+    \item optimization bias is large when a lot of models are compared
+\end{itemize}
+
 
 \section{Parametric \& Non-Parametric}
 \begin{itemize}
@@ -84,6 +90,19 @@ Note:
     \item depth \(\uparrow \) \(\rightarrow \) \(E_{train} \uparrow \text{ but } E_{approx} \downarrow \)
 \end{itemize}
 
+Note:
+\begin{itemize}
+    \item deep learning is sensitive to initialization \(\because\) it's non-convex
+\end{itemize}
+
+\subsection{Convolutional Neural Networks}
+Motivation:
+\begin{itemize}
+    \item reduce \# parameters
+    \item exploit structure in data
+    \item reduce overfitting
+\end{itemize}
+
 \section{Math}
 Objective functions and derivatives:
 \begin{align*}
@@ -134,6 +153,11 @@ Maximum Likelihood Estimation (MLE):
 \section{Some Tips}
 \begin{itemize}
     \item \textbf{decision stump}: computer error for different stumps then choose the one with the least error
+    \item \textbf{randomness of random forest}:
+    \begin{itemize}
+        \item random subset of data
+        \item random subset of features
+    \end{itemize}
 \end{itemize}
 
 \end{multicols*}
