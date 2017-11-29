@@ -12,7 +12,6 @@
 \usepackage{enumitem}
 
 \setitemize{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt}
-
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.2\baselineskip}
 
@@ -46,10 +45,33 @@
 \end{itemize}
 
 \section{Math}
-\vspace*{-\baselineskip}
+Objective functions and derivatives:
 \begin{align*}
    f(x) &= \frac{1}{2}\sum\limits_{i=1}^{n} (w^\intercal x_i - y_i)^2 + \frac{\lambda}{2} \sum\limits_{j=1}^{d} w_j^2 \\
    &= \frac{1}{2} ||Xw-y||^2 + \frac{\lambda}{2} ||w||^2
+\end{align*}
+\begin{itemize}
+    \item \(\sum\limits_{i=1}^{n} (w^\intercal x_i - y_i)^2 = \sum\limits_{i=1}^{n} r_i^2 = r^\intercal r = ||r||^2\)
+    \item \(||v|| = \sqrt{\sum\limits_{j=1}^{d} v_j^2}\), \(u^\intercal v = \sum\limits_{j=1}^{d} u_j v_j\)
+    \item \(||w||^2 = \sum\limits_{j=1}^{d} w_j^2 = \sum\limits_{j=1}^{d} w_j w_j = w^\intercal w \)
+\end{itemize}
+\begin{align*}
+    f(w) &= \frac{1}{2} (Xw-y)^\intercal (Xw-y) + \frac{\lambda}{2} w^\intercal w \\
+    &= \frac{1}{2} w^\intercal X^\intercal Xw - w^\intercal X^\intercal y - \frac{1}{2} y^\intercal y + \frac{\lambda}{2} w^\intercal w \\
+    \nabla f(x) &= X^\intercal Xw - X^\intercal y + \lambda w = 0 \\
+    & \rightarrow (X^\intercal X + \lambda I) w = X^\intercal y
+\end{align*}
+\begin{itemize}
+    \item \(\nabla_w (c) = 0\), \(\nabla_w (w^\intercal b) = b\), \(\nabla_w (\frac{1}{2} w^\intercal A w = Aw\)
+\end{itemize}
+\begin{itemize}
+    \item if \(f(x) = \cdots \frac{\lambda}{2} \sum\limits_{j=1}^{d} w_j v_j\), then \(f(x) = \cdots \lambda w^\intercal v\) and \(\nabla f(x) = X^\intercal Xw - X^\intercal y + \lambda v = 0\)
+\end{itemize}
+\begin{align*}
+    f(x) &= \sum\limits_{i=1}^{n} z_i |w^\intercal x_i - y_i| + \lambda \max_j |w_j|
+\end{align*}
+\begin{align*}
+    f(w) = ||Z(Xw - y)||_1 + \lambda ||w||_{\infty}
 \end{align*}
 \end{multicols*}
 \end{document}
