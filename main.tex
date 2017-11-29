@@ -9,6 +9,7 @@
 \usepackage{microtype}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{breqn}
 \usepackage{enumitem}
 
 \setitemize{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt}
@@ -52,6 +53,17 @@
     \item \(\mu \) = mean of \(X_j\) and \(y\), \(\sigma \) = std of \(X_j\) and \(y\)
     \item \(x_i = x_i - \frac{\mu}{\sigma}\)
     \item use the \(\mu \) and \(\sigma \) from training data on test data
+\end{itemize}
+
+\section{Neural Networks}
+\begin{dmath*}
+    f(W^{(1)},W^{(2)}) = \frac{1}{2} \sum_{i=i}^{n} (w^\intercal h(W^{(2)}h(W^{(1)}x_i))-y_i)^2 + \frac{\lambda}{2}||w||^2 + \frac{\lambda_1}{2} ||W^{(1)}||_F^2 + \frac{\lambda_2}{2} ||W^{(2)}||_F^2
+\end{dmath*}
+\begin{itemize}
+    \item \(W^1\) is \(k_1 \times d\), \(W^2\) is \(k_2 \times k_1\), and \(w\) is \(k_2 \times 1\)
+    \item \(k \uparrow \) \(\rightarrow \) \(E_{train} \downarrow \text{ but } E_{approx} \uparrow \)
+    \item \(\lambda \uparrow \) \(\rightarrow \) \(E_{train} \uparrow \text{ but } E_{approx} \downarrow \)
+    \item depth \(\uparrow \) \(\rightarrow \) \(E_{train} \uparrow \text{ but } E_{approx} \downarrow \)
 \end{itemize}
 
 \section{Math}
