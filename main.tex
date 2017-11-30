@@ -68,6 +68,19 @@ Model Selection:
     \item use the \(\mu \) and \(\sigma \) from training data on test data
 \end{itemize}
 
+\section{Trees}
+
+\subsection{Decision Tree}
+Decision Stump: (\(n\) objects, \(d\) features, \(t\) thresholds)
+\begin{itemize}
+    \item cost:
+    \begin{itemize}
+        \item cost: \(O(ndt)\) (without sorting, computing score for \(dt\) rules)
+        \item cost: \(O(n^2d)\) (consider only features)
+        \item cost: \(O(nd \log(n))\) (with sorting, sorting costs \(O(n \log(n))\) per feature)
+    \end{itemize}
+\end{itemize}
+
 \section{PCA}
 \begin{dmath*}
     f(W,Z) = \sum_{i=1}^{n} \sum_{j=1}^{d} (w_j^\intercal z_i - x_{ij})^2 + \frac{\lambda_W}{2} ||W|_F^2 \frac{\lambda_Z}{2} ||Z||_F^2
