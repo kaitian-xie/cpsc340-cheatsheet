@@ -165,6 +165,16 @@ Note:
     \item \(ZW = (-Z)(-W)\) (not unique)
     \item sparse PCA: \(f(Z,W) = ||ZW-X||_F^2 + \lambda_W (\sum_{j=1}^{d} ||w_j||_1) +\frac{\lambda_Z}{2} (\sum_{i=1}^{n} ||z_i||^2)\)
 \end{itemize}
+ISOMAP vs. PCA
+\begin{itemize}
+    \item pro: can learn non-linear projections (e.g. manifold)
+    \item con: more expensive, don't get basis interpretation
+\end{itemize}
+NMF vs. PCA
+\begin{itemize}
+    \item pro: sparsity, more interpretable in some cases
+    \item con: more expensive, worse reconstructions
+\end{itemize}
 
 \section{Recommender System}
 % TODO: 2017 Final Q1c
