@@ -173,6 +173,13 @@ Alternating Minimization:
     \item local optimum become global optimum if randomly initialize \(W\) and \(Z\)
     \item not jointly convex --- different \(W\) and \(Z\) depending on initialization
 \end{itemize}
+Stochastic Gradient:
+\begin{itemize}
+    \item \(w_j^{t+1} = w_j^t - \sigma_t \nabla_{w_i} f(w_j,z_i,x_{ij})\)
+    \item \(z_i^{t+1} = z_i^t - \sigma_t \nabla_{z_i} f(w_j,z_i,x_{ij})\)
+    \item where \(f(w_j,z_i,x_{ij}) = (w_j^t z_i - x_{ij})^2\)
+\end{itemize}
+Variance Explained: \(1 - \frac{||ZW-X||_F^2}{||X||_F^2}\) \\
 Prediction Phase:
 \begin{enumerate}
     \item center test data
@@ -184,18 +191,19 @@ Trade-off:
     % TODO: 2016 Final Q8 (d)
     % TODO: L29 s7a
 \end{itemize}
+PCA is not unique (e.g. \(ZW = (-Z)(-W)\)): \(\because\)
+\begin{itemize}
+    \item can multiply any \(W_c\) by any non-zero \(\sigma\)
+    \item can rotate any \(W_c\) arbitrarily within the span
+    \item can switch any \(W_c\) with another \(W_c'\)
+\end{itemize}
+Make PCA Unique:
+\begin{itemize}
+    \item Normalization: \(||W_1|| = 1\) and \(||W_2|| = 1\)
+    \item Orthogonality: \(W_1^\intercal W_2 = 0\) (perpendicular)
+\end{itemize}
 Applications: outlier detection, dimensionality reduction, data compression, features for linear models, visualization, factor discovery, filling in missing entries \\
-PCA vs. NMF vs. Sparse PCA
-\begin{itemize}
-    \item PCA --- orthonormal
-    \item NMF --- non-negative \& sparsity
-    \item Sparse PCA --- zeros \& non-orthonormal
-\end{itemize}
-Note:
-\begin{itemize}
-    \item \(ZW = (-Z)(-W)\) (not unique)
-    \item sparse PCA: \(f(Z,W) = ||ZW-X||_F^2 + \lambda_W (\sum_{j=1}^{d} ||w_j||_1) +\frac{\lambda_Z}{2} (\sum_{i=1}^{n} ||z_i||^2)\)
-\end{itemize}
+\textbf{Note}: \\
 ISOMAP vs. PCA
 \begin{itemize}
     \item pro: can learn non-linear projections (e.g. manifold)
@@ -205,6 +213,12 @@ NMF vs. PCA
 \begin{itemize}
     \item pro: sparsity, more interpretable in some cases
     \item con: more expensive, worse reconstructions
+\end{itemize}
+PCA vs. NMF vs. Sparse PCA
+\begin{itemize}
+    \item PCA --- orthonormal
+    \item NMF --- non-negative \& sparsity
+    \item Sparse PCA --- zeros \& non-orthonormal
 \end{itemize}
 
 \section{Recommender System}
