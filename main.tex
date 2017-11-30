@@ -98,6 +98,16 @@ Decision Stump: (\(n\) objects, \(d\) features, \(t\) thresholds)
     \end{itemize}
 \end{itemize}
 
+\section{Naïve Bayes}
+\begin{align*}
+    p(y_i|x_i) &= \frac{p(x_i|y_i) p(y_i)}{p(x_i)} \\
+    &\propto p(x_i|y_i) p(y_i) \\
+    &\approx \prod_{j=1}^{d} (p(x_{ij}|y_i)) p(y_i)
+\end{align*}
+\begin{center}
+    \(p(\hat{y} = 1|\hat{x}) > p(\hat{y}=0|\hat{x}) \Rightarrow \hat{y} = 1\)
+\end{center}
+
 \section{PCA}
 \begin{dmath*}
     f(W,Z) = \sum_{i=1}^{n} \sum_{j=1}^{d} (w_j^\intercal z_i - x_{ij})^2 + \frac{\lambda_W}{2} ||W|_F^2 \frac{\lambda_Z}{2} ||Z||_F^2
@@ -231,6 +241,7 @@ Maximum Likelihood Estimation (MLE):
         \item objects sampled independently
     \end{itemize}
     \item \textbf{fundemental trade-off}: \(E_{train} \text{ vs. } E_{approx}\)
+    \item \textbf{no free lunch (NFL) theorem}: There is no ``best'' model achieving the best generalization error for every problem.
 \end{itemize}
 
 \end{multicols*}
