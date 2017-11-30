@@ -11,16 +11,19 @@
 \usepackage{amsmath}
 \usepackage{breqn}
 \usepackage{enumitem}
+\usepackage{titlesec}
 
 \setitemize{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.2\baselineskip}
+\titleformat*{\section}{\footnotesize\bfseries}
+\titleformat*{\subsection}{\scriptsize\bfseries}
 
 \DeclareMathOperator*{\argmin}{argmin}
 \DeclareMathOperator*{\argmax}{argmax}
 
 \begin{document}
-\footnotesize
+\tiny
 \begin{multicols*}{5}
 \section{Validation}
 % TODO: 2016_valid Q1 pseudocode
