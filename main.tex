@@ -32,7 +32,24 @@
 \section{Validation}
 % TODO: 2016_valid Q1 pseudocode
 
-% TODO: different validation techniques
+Validation Techniques:
+\begin{itemize}
+    \item fixed-validation:
+    \begin{itemize}
+        \item fixed sizes of train dataset and validation dataset
+    \end{itemize}
+    \item k-fold validation:
+    \begin{itemize}
+        \item divide dataset into \(k\) parts
+        \item use \(k-1\) parts for training and the other part for validation
+        \item repeat \(k\) times then average
+    \end{itemize}
+    \item loop validation (leave-one-out validation):
+    \begin{itemize}
+        \item use all dataset for training but leave one object for validation
+        \item repeat \(n\) times then average
+    \end{itemize}
+\end{itemize}
 Model Selection:
 \begin{itemize}
     \item optimization bias is small when a few models are compared
@@ -207,6 +224,13 @@ Maximum Likelihood Estimation (MLE):
         \item random subset of data
         \item random subset of features
     \end{itemize}
+    \item \textbf{golden rule of ML}: test data should not influence training phase in any way
+    \item \textbf{IID assumption}:
+    \begin{itemize}
+        \item objects from the same distribution
+        \item objects sampled independently
+    \end{itemize}
+    \item \textbf{fundemental trade-off}: \(E_{train} \text{ vs. } E_{approx}\)
 \end{itemize}
 
 \end{multicols*}
