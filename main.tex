@@ -160,15 +160,25 @@ Objective Function:
     &= \sum_{i=1}^{n} ||W^\intercal z_i - x_i||^2 \\
     &= ||ZW-X||_F^2
 \end{align*}
+Matrix Factorization: \(X_{n \times d} \approx Z_{n \times k} W_{k \times d}\) \\
 % \begin{dmath*}
 %     f(W,Z) = \sum_{i=1}^{n} \sum_{j=1}^{d} (w_j^\intercal z_i - x_{ij})^2 + \frac{\lambda_W}{2} ||W|_F^2 \frac{\lambda_Z}{2} ||Z||_F^2
 % \end{dmath*}
+Alternating Minimization:
+\begin{itemize}
+    \item \(\nabla_W f(W,Z) = Z^\intercal Z W - Z^\intercal X\),so \(W = (Z^\intercal Z)^{-1} (Z^\intercal X)\)
+    \item \(\nabla_Z f(W,Z) = Z W W^\intercal - X W^\intercal \), so \(Z = X W^\intercal (W W^\intercal)^{-1}\)
+    \item find local optimum but not global optimum (sensitive to initialization)
+    \item local optimum become global optimum if randomly initialize \(W\) and \(Z\)
+    \item not jointly convex --- different \(W\) and \(Z\) depending on initialization
+\end{itemize}
 Trade-off:
 \begin{itemize}
     \item reduce overfitting when \emph{both} W and Z are regularized
     % TODO: 2016 Final Q8 (d)
     % TODO: L29 s7a
 \end{itemize}
+Applications: outlier detection, dimensionality reduction, data compression, features for linear models, visualization, factor discovery, filling in missing entries \\
 PCA vs. NMF vs. Sparse PCA
 \begin{itemize}
     \item PCA --- orthonormal
