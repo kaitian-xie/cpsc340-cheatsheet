@@ -109,6 +109,15 @@ Decision Stump: (\(n\) objects, \(d\) features, \(t\) thresholds)
 \end{equation*}
 Laplace Smoothing:\(\frac{(\text{\# spam messages with } x_i)+1}{(\text{\# spam messages})+2}\)
 
+\section{Gradient Descent}
+
+\subsection{Stochastic Gradient Descent}
+
+Note:
+\begin{itemize}
+    \item minibatch size \(\downarrow \) \(\rightarrow \) each iteration is faster, but more iterations needed
+\end{itemize}
+
 \section{PCA}
 \begin{dmath*}
     f(W,Z) = \sum_{i=1}^{n} \sum_{j=1}^{d} (w_j^\intercal z_i - x_{ij})^2 + \frac{\lambda_W}{2} ||W|_F^2 \frac{\lambda_Z}{2} ||Z||_F^2
