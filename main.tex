@@ -19,6 +19,8 @@
 \titleformat*{\section}{\footnotesize\bfseries}
 \titleformat*{\subsection}{\scriptsize\bfseries}
 
+\graphicspath{{images/}}
+
 \DeclareMathOperator*{\argmin}{argmin}
 \DeclareMathOperator*{\argmax}{argmax}
 
@@ -151,6 +153,28 @@ Maximum Likelihood Estimation (MLE):
     \item minimizing NLL
     \item \(f(x) = - \sum_{i=1}^{n}\log{(p(y_i|x_i,w))}\)
     \item runtime: \(O(nd)\)
+\end{itemize}
+
+\section{Plots}
+\begin{itemize}
+    \item decision tree (1 variable at a time) \\
+    \includegraphics[scale=0.3]{decision_tree_plot}
+    \item KNN with \(k=1\) \\
+    \includegraphics[scale=0.3]{knn_plot}
+    \item L2-regularized logistic regression \\
+    \includegraphics[scale=0.3]{l2_regularized_logistic_regression_plot}
+    \item linear SVM (maximizes the margin)\\
+    \includegraphics[scale=0.3]{linear_svm_plot}
+    \item RBF SVM (blob-like boundaries) \\
+    \includegraphics[scale=0.3]{rbf_svm_plot}
+    \item neural network using 1 hidden layer and ReLUs \\
+    \includegraphics[scale=0.3]{neural_network_plot}
+    \item non-regularized L2 norm (not robust) \\
+    \includegraphics[scale=0.3]{non_regularized_l2_norm}
+    \item regularized L2 norm (robust \(\because \) smaller slope) \\
+    \includegraphics[scale=0.3]{regularized_l2_norm}
+    \item L1 norm (robust fit \(\because \) absolute value loss) \\
+    \includegraphics[scale=0.3]{l1_norm}
 \end{itemize}
 
 \section{Some Tips}
