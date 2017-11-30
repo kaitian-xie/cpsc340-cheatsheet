@@ -154,9 +154,15 @@ Note:
 \end{itemize}
 
 \section{PCA}
-\begin{dmath*}
-    f(W,Z) = \sum_{i=1}^{n} \sum_{j=1}^{d} (w_j^\intercal z_i - x_{ij})^2 + \frac{\lambda_W}{2} ||W|_F^2 \frac{\lambda_Z}{2} ||Z||_F^2
-\end{dmath*}
+Objective Function:
+\begin{align*}
+    f(W,Z) &= \sum_{i=1}^{n} \sum_{j=1}^{d} (w_j^\intercal z_i - x_{ij})^2 \\
+    &= \sum_{i=1}^{n} ||W^\intercal z_i - x_i||^2 \\
+    &= ||ZW-X||_F^2
+\end{align*}
+% \begin{dmath*}
+%     f(W,Z) = \sum_{i=1}^{n} \sum_{j=1}^{d} (w_j^\intercal z_i - x_{ij})^2 + \frac{\lambda_W}{2} ||W|_F^2 \frac{\lambda_Z}{2} ||Z||_F^2
+% \end{dmath*}
 Trade-off:
 \begin{itemize}
     \item reduce overfitting when \emph{both} W and Z are regularized
