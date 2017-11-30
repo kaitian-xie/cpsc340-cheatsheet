@@ -104,9 +104,10 @@ Decision Stump: (\(n\) objects, \(d\) features, \(t\) thresholds)
     &\propto p(x_i|y_i) p(y_i) \\
     &\approx \prod_{j=1}^{d} (p(x_{ij}|y_i)) p(y_i)
 \end{align*}
-\begin{center}
-    \(p(\hat{y} = 1|\hat{x}) > p(\hat{y}=0|\hat{x}) \Rightarrow \hat{y} = 1\)
-\end{center}
+\begin{equation*}
+    p(\hat{y} = 1|\hat{x}) > p(\hat{y}=0|\hat{x}) \Rightarrow \hat{y} = 1
+\end{equation*}
+Laplace Smoothing:\(\frac{(\text{\# spam messages with } x_i)+1}{(\text{\# spam messages})+2}\)
 
 \section{PCA}
 \begin{dmath*}
