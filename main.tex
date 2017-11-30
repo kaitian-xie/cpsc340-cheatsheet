@@ -76,9 +76,16 @@ Trade-off:
     % TODO: 2016 Final Q8 (d)
     % TODO: L29 s7a
 \end{itemize}
+PCA vs. NMF vs. Sparse PCA
+\begin{itemize}
+    \item PCA --- orthonormal
+    \item NMF --- non-negative \& sparsity
+    \item Sparse PCA --- zeros \& non-orthonormal
+\end{itemize}
 Note:
 \begin{itemize}
     \item \(ZW = (-Z)(-W)\) (not unique)
+    \item sparse PCA: \(f(Z,W) = ||ZW-X||_F^2 + \lambda_W (\sum_{j=1}^{d} ||w_j||_1) +\frac{\lambda_Z}{2} (\sum_{i=1}^{n} ||z_i||^2)\)
 \end{itemize}
 
 \section{Recommender System}
