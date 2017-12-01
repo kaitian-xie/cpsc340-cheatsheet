@@ -203,7 +203,42 @@ Make PCA Unique:
     \item Orthogonality: \(W_1^\intercal W_2 = 0\) (perpendicular)
 \end{itemize}
 Applications: outlier detection, dimensionality reduction, data compression, features for linear models, visualization, factor discovery, filling in missing entries \\
-\textbf{Note}: \\
+
+\subsection{Non-Negative Matrix Factorization (NMF)}
+NMF
+\begin{itemize}
+    \item leads to sparsity
+    \item regularizes \(W\)
+\end{itemize}
+Projected Gradient:
+\begin{enumerate}
+    \item \(w^{t+\frac{1}{2}} = w^t - \sigma^t \nabla f(w^t)\)
+    \item \(w_j^{t+1} = \max \{0, w_j^{t+\frac{1}{2}}\} \)
+    \item repeat
+\end{enumerate}
+Ways to Use Projected Gradient:
+\begin{itemize}
+    \item alternate between projected gradient steps between \(W\) and \(Z\)
+    \item run projected gradient on both at once
+    \item sample random \(i\) and \(j\) and do \emph{stochastic} gradient descent
+\end{itemize}
+Problems of NMF:
+\begin{itemize}
+    \item non-convex
+    \item sensitive to initialization
+    \item hard to find global optimum
+\end{itemize}
+
+\subsection{Variants of PCA}
+L2-regularized PCA:
+\begin{dmath*}
+    f(W,Z) = \frac{1}{2} ||ZW-X||_F^2 + \frac{\lambda_1}{2} ||W||_F^2 + \frac{\lambda_2}{2} ||Z||_F^2
+\end{dmath*}
+\begin{itemize}
+    \item need to regularize \emph{both} \(W\) and \(Z\) otherwise one will compensate the other
+\end{itemize}
+
+\subsection{Note}
 ISOMAP vs. PCA
 \begin{itemize}
     \item pro: can learn non-linear projections (e.g. manifold)
