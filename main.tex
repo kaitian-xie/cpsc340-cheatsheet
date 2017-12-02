@@ -326,6 +326,39 @@ Content-Based vs. Collaborative
     \item collaborative can learn about each user/movie, but can't predict on new users/movies
 \end{itemize}
 
+\section{Multi-Dimensional Scaling (MDS)}
+Default Objective
+\begin{dmath*}
+   f(Z) = \sum_{i=1}^{n} \sum_{j=i+1}^{n} (||z_i - z_j|| - ||x_i - x_j||)^2
+\end{dmath*}
+Better Objective
+\begin{dmath*}
+    f(Z) = \sum\limits_{i=1}^{n}\sum\limits_{j=i+1}^{n} d_3(d_2(z_i, z_j) - d_1(x_i, x_j))
+\end{dmath*}
+\begin{itemize}
+    \item \(d_1\) = high-dimensional distance to match
+    \item \(d_2\) = low-dimensional distance to control
+    \item \(d_3\) = controls how we compare high/low-dimensional distances
+\end{itemize}
+Choosing \(d_1\), \(d_2\), and \(d_3\)
+\begin{itemize}
+    \item classic MDS: \(d_1(x_i, x_j) = x_i^\intercal x_j\) and \(d_2(z_i, z_j) = z_i^\intercal z_j\)
+    \begin{itemize}
+        \item obtains PCA for centered \(x_i\)
+        \item not good because it's a linear model
+    \end{itemize}
+    \item alternative: \(d_1(x_i, x_j) = ||x_i - x_j||_1\) and \(d_2(z_i, z_j) = ||z_i - z_j||\)
+    \begin{itemize}
+        \item \(z_i\) approximates high-dimensional L1-norm distances
+    \end{itemize}
+    \item Sammon's mapping to make MDS less crowded by using \emph{weighted} MDS
+    \begin{itemize}
+        \item \(f(Z) = \sum_{i=1}^{n} \sum_{j=i+1}^{n} (\frac{d_2(z_i,z_j) - d_1(x_i,x_j)}{d_1(x_i,x_j)})^2\)
+        \item denominator reduces focus on large distances
+    \end{itemize}
+\end{itemize}
+
+
 \section{Neural Networks}
 \begin{dmath*}
     f(W^{(1)},W^{(2)}) = \frac{1}{2} \sum_{i=i}^{n} (w^\intercal h(W^{(2)}h(W^{(1)}x_i))-y_i)^2 + \frac{\lambda}{2}||w||^2 + \frac{\lambda_1}{2} ||W^{(1)}||_F^2 + \frac{\lambda_2}{2} ||W^{(2)}||_F^2
