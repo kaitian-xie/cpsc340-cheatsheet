@@ -431,6 +431,21 @@ Motivation:
 \end{itemize}
 
 \section{Math}
+Norms:
+\begin{itemize}
+    \item \(L_2\) or ``Euclidean'' norm
+    \begin{equation*}
+         ||r||_2 = \sqrt{\sum_{j=1}^{d} r_j^2}
+    \end{equation*}
+    \item \(L_1\) or ``Manhattan'' norm
+    \begin{equation*}
+        ||r||_1 = \sum_{j=1}^{d} |r_j|
+    \end{equation*}
+    \item \(L_{\infty}\) or ``max'' norm
+    \begin{equation*}
+        ||r||_{\infty} = \max_j{\{|r_j|}\}
+    \end{equation*}
+\end{itemize}
 Objective functions and derivatives:
 \begin{align*}
    f(x) &= \frac{1}{2}\sum\limits_{i=1}^{n} (w^\intercal x_i - y_i)^2 + \frac{\lambda}{2} \sum\limits_{j=1}^{d} w_j^2 \\
