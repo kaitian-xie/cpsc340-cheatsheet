@@ -237,6 +237,19 @@ L2-regularized PCA:
 \begin{itemize}
     \item need to regularize \emph{both} \(W\) and \(Z\) otherwise one will compensate the other
 \end{itemize}
+L1-regularized PCA:
+\begin{dmath*}
+    f(W,Z) = \frac{1}{2} ||ZW-X||_F^2 + \frac{\lambda_1}{2} \sum_{i=1}^{n} ||z_i||_1 + \frac{\lambda_2}{2} \sum_{j=1}^{d} ||w_j||_1
+\end{dmath*}
+\begin{itemize}
+    \item pros:
+    \begin{itemize}
+        \item negative coefficients usually make sense
+        \item can set \(\lambda_1\) and \(\lambda_2\) to control sparsity
+    \end{itemize}
+    \item con: need to set \(\lambda_1\) and \(\lambda_2\)
+    \item L1 on \(Z\) = sparse coding, L1 on \(W\) = sparse dictionary learning
+\end{itemize}
 
 \subsection{Note}
 ISOMAP vs. PCA
