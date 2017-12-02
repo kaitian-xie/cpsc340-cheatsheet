@@ -358,6 +358,27 @@ Choosing \(d_1\), \(d_2\), and \(d_3\)
     \end{itemize}
 \end{itemize}
 
+\section{ISOMAP}
+\begin{center}
+    \includegraphics[scale=0.2]{manifold}
+\end{center}
+\begin{itemize}
+    \item PCA/MDS can't discover non-linear manifolds
+    \item Geodesic distance (distance through the manifold), is used for low-dimensional manifold
+    \item ISOMAP is a latent-factor model for visualizing data on manifolds
+\end{itemize}
+ISOMAP Procedure \\
+\includegraphics[scale=0.12]{isomap_procedure}
+
+\subsection{Note}
+Constructing Neighbour Graph
+\begin{itemize}
+    \item epsilon graph: convert \(x_i\) to all \(x_j\) within some threshold \(\epsilon \)
+    \item KNN graph: connect \(x_i\) to \(x_j\) if \(x_j\) = KNN of \(x_i\) OR \(x_i\) = KNN of \(x_j\)
+    \item mutual KNN graph: connect \(x_i\) to \(x_j\) if \(x_j\) = KNN of \(x_i\) AND \(x_i\) = KNN of \(x_j\)
+\end{itemize}
+ISOMAP vs. t-SNE \\
+\includegraphics[scale=0.15]{isomap_vs_t-sne}
 
 \section{Neural Networks}
 \begin{dmath*}
