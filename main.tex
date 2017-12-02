@@ -285,6 +285,47 @@ PCA vs. NMF vs. Sparse PCA
 \section{Recommender System}
 % TODO: 2017 Final Q1c
 
+\subsection{Content-Based Filtering}
+\begin{itemize}
+    \item supervised learning --- use features for predictions
+    \item apply model to new users/items
+\end{itemize}
+
+\subsection{Collaborative Filtering}
+\includegraphics[scale=0.1]{user-item_matrix}
+\begin{itemize}
+    \item unsupervised learning --- only use labels
+    \item latent-factor model: \(y_{ij} \approx w_j^\intercal z_i\)
+    \begin{itemize}
+        \item \(z_{ic}\) =  ``likes romantic comedies''
+        \item \(w_{ic}\) =  ``has Nicholas Cage''
+    \end{itemize}
+    \item loss function: \(f(Z,W) = \sum\limits_{(i,j) \in R} (w_j^\intercal - y_{ij})^2 + \frac{\lambda_1}{2} ||Z||_F^2 + \frac{\lambda_2}{2} ||W||_F^2\)
+    \item add biases: \(y_{ij} \approx \beta + \beta_i + \beta_j + w_j^\intercal z_i\)
+    \begin{itemize}
+        \item \(\beta \) = global bias
+        \item \(\beta_i \) = user-specific bias
+        \item \(\beta_j \) = user-specific bias
+    \end{itemize}
+    \item \(Y_{n \times d} \approx Z_{n \times k} W_{k \times d}\)
+\end{itemize}
+
+\subsection{Note}
+Problems:
+\begin{itemize}
+    \item diversity --- how different are the recommendations?
+    \item persistence --- how long should recommendations last?
+    \item trust --- tell user why you made a recommendation
+    \item social recommendation --- what did your friends watch?
+    \item freshness --- new and surprising things
+\end{itemize}
+Content-Based vs. Collaborative
+\begin{itemize}
+    \item content-based is a linear model and collaborative is a latent-factor model
+    \item content-based can predict  on new users/movies, but can't learn about each user/movie
+    \item collaborative can learn about each user/movie, but can't predict on new users/movies
+\end{itemize}
+
 \section{Neural Networks}
 \begin{dmath*}
     f(W^{(1)},W^{(2)}) = \frac{1}{2} \sum_{i=i}^{n} (w^\intercal h(W^{(2)}h(W^{(1)}x_i))-y_i)^2 + \frac{\lambda}{2}||w||^2 + \frac{\lambda_1}{2} ||W^{(1)}||_F^2 + \frac{\lambda_2}{2} ||W^{(2)}||_F^2
