@@ -117,7 +117,30 @@ Decision Stump: (\(n\) objects, \(d\) features, \(t\) thresholds)
 \begin{equation*}
     p(\hat{y} = 1|\hat{x}) > p(\hat{y}=0|\hat{x}) \Rightarrow \hat{y} = 1
 \end{equation*}
-Laplace Smoothing:\(\frac{(\text{\# spam messages with } x_i)+1}{(\text{\# spam messages})+2}\)
+
+\subsection{Note}
+Laplace Smoothing:\(\frac{(\text{\# spam messages with } x_i)+1}{(\text{\# spam messages})+2}\) \\
+Decision Theory: assign a cost to each scenario
+
+\section{K-Nearest Neighbours (KNN)}
+KNN
+\begin{itemize}
+    \item non-parametric (size of model = \(O(nd)\))
+    \item no training phase
+    \item expansive prediction (\(O(nd)\) for 1 test object)
+\end{itemize}
+KNN Procedure:
+\begin{enumerate}
+    \item find \(k\) training examples \(x_i\) that are most similar to \(\hat{x}\) in terms of Euclidean distance
+    \item classify using the most common label of similar examples
+\end{enumerate}
+
+\subsection{Note}
+Problems:
+\begin{itemize}
+    \item exponentially more points needed when dimensions grows
+    \item can be problematic when features have different scales
+\end{itemize}
 
 \section{Clustering}
 
