@@ -251,6 +251,19 @@ L1-regularized PCA:
     \item L1 on \(Z\) = sparse coding, L1 on \(W\) = sparse dictionary learning
 \end{itemize}
 
+\subsection{Robust PCA}
+\begin{dmath*}
+    f(W,Z) = \sum\limits_{i=1}^{n} \sum\limits_{j=1}^{d} |w_j^\intercal z_i - x_{ij}| + \frac{\lambda_1}{2} \sum\limits_{i=1}^{n} \sum\limits_{c=1}^{k} z_{ic}^2 + \frac{\lambda_2}{2} \sum\limits_{j=1}^{d} \sum\limits_{c=1}^{k} |w_{cj}|
+\end{dmath*}
+\begin{itemize}
+    \item absolute loss \(\rightarrow \) robust to outliers
+    \item encourages residuals to be exactly 0
+    \item L2-regularization works when both \(W\) and \(Z\) are regularized
+    \item L1-regularization gives spars latent factors/features
+    \item logistic/softmax/Poisson losses for discrete \(x_{ij}\)
+    \item change of basis for non-linear latent-factor models
+\end{itemize}
+
 \subsection{Note}
 ISOMAP vs. PCA
 \begin{itemize}
