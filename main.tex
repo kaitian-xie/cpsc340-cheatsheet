@@ -381,6 +381,34 @@ Alternative: gradient descent
 
 % TODO: L16 Complexity Pentalties
 
+\section{Gaussian RBFs}
+Radial Basis Functions (RBFs)
+\begin{dmath*}
+    Z =
+    \begin{bmatrix}
+        g(||x_1-x_1||) & g(||x_1-x_2||) & \cdots & g(||x_1-x_n||) \\
+        g(||x_2-x_1||) & g(||x_1-x_2||) & \cdots & g(||x_2-x_n||) \\
+        \vdots & \vdots & \ddots & \vdots \\
+        g(||x_n-x_1||) & g(||x_n-x_2||) & \cdots & g(||x_n-x_n||)
+    \end{bmatrix}_{n \times n}
+\end{dmath*}
+Gaussian RBF: \(g(\delta) = \exp(-\frac{\delta^2}{2\sigma^2})\)
+\begin{itemize}
+    \item \(\sigma^2\) = hyperparameter controlling the width, which affect the fundamental trade-off
+\end{itemize}
+Predictions
+\begin{dmath*}
+    \hat{Z} =
+    \begin{bmatrix}
+        &  &  & \\
+    & g(||\hat{x_i}-x_j||) &  &  \\
+        &  &  &  \\
+    &  &  &
+\end{bmatrix}_{n \times t}
+\end{dmath*}
+Regularization: L2 regularization
+Choosing \(\sigma \) \& \(\lambda \): cross-validation
+
 \section{Gradient Descent}
 Procedure
 \begin{enumerate}
@@ -443,6 +471,41 @@ Non-Zero Penalties
 
 \subsection{Feature Selection Guide}
 \includegraphics[scale=0.1]{feature_selection_guide}
+
+\section{Regularization}
+
+\subsection{L2 Regularization}
+\begin{dmath*}
+    f(w) = L(w,X,y) + \frac{\lambda}{2} ||w||^2
+\end{dmath*}
+\begin{itemize}
+    \item penalizes model complexity
+\end{itemize}
+Trade-off: \(E_{train} \uparrow \) \& \(E_{approx} \downarrow \) \\
+Choosing \(\lambda \): validation techniques
+
+\subsection{L1 Regularization}
+\begin{dmath*}
+    f(w) = L(w,X,y) + \lambda ||w||_1
+\end{dmath*}
+\begin{itemize}
+    \item simultaneously regularizes and selects features
+\end{itemize}
+
+\subsection{L0 Regularization}
+\begin{dmath*}
+    f(w) = L(w,X,y) + \lambda ||w||_0
+\end{dmath*}
+\begin{itemize}
+    \item encourage elements of \(w\) to be exactly zero
+\end{itemize}
+
+\subsection{\emph{Note}}
+L2 Regularization vs. L1 Regularization \\
+\begin{itemize}
+    \item feature selection --- L2: no, L1: yes
+    \item unique solution --- L2: yes, L1: no
+\end{itemize}
 
 \section{Kernels}
 
