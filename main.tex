@@ -178,7 +178,125 @@ Random Trees
 
 \section{Clustering}
 
-Note: \\
+\subsection{K-Means}
+K-Means Input
+\begin{itemize}
+    \item \# clusters \(k\)
+    \item initial guess of the mean of each cluster
+\end{itemize}
+Procedure
+\begin{enumerate}
+    \item assign each \(x_i\) to its closest mean
+    \item update means
+    \item repeat until convergence
+\end{enumerate}
+Cost
+\begin{itemize}
+    \item \(O(d)\) --- compute the Euclidean distance between \(x_i\) and each mean \(w_c\)
+    \item \(O(ndk)\) --- assign objects to different clusters
+    \item \(O(nd)\) --- update a mean
+\end{itemize}
+Vector Quantization \\
+Replace objects with its cluster mean \\
+\includegraphics[scale=0.2]{vector_quantization}
+Problems
+\begin{itemize}
+    \item assume \(k\) is known
+    \item no overlapping or unassigned objects
+    \item may converge to sub-optimal solution
+    \item can't deal with non-convex data properly
+\end{itemize}
+
+\subsection{Density-Based Clustering}
+Two Hyperparameters
+\begin{itemize}
+    \item radius --- min distance between closed points
+    \item minPoints --- \# reachable points (core)
+\end{itemize}
+Procedure
+\begin{enumerate}
+    \item if \(x_i\) already assigned to a cluster, do nothing
+    \item check if \(x_i\) is a core point
+    \begin{itemize}
+        \item yes \(\rightarrow \) expand cluster
+        \begin{enumerate}[label=\arabic*]
+            \item assign all \(x_j\) with distance \(r\) of core point \(x_i\) to cluster
+            \item for each newly-assigned \(x_j\) that is core point, expand cluster
+        \end{enumerate}
+        \item no  \(\rightarrow \) do nothing
+    \end{itemize}
+\end{enumerate}
+Problems
+\begin{itemize}
+    \item some points not assigned
+    \item ambiguity of non-core (boundary) points
+    \item sensitive to choice of radius and minPoints
+    \begin{itemize}
+        \item not sensitive to initialization (expect for boundary points)
+    \end{itemize}
+    \item finding cluster is expansive when a new example added
+    \begin{itemize}
+        \item need to compute distances to training points
+    \end{itemize}
+    \item need a lot of points to fill the space in high dimensions
+\end{itemize}
+Label Switching Problem \\
+\begin{itemize}
+    \item cluster labels \(y_i\) are meaningless
+    \item same clustering with permuted labels
+    \item all \(y_i\) become equally likely as \# initializations inceases
+\end{itemize}
+
+\subsection{Hierarchical Clustering}
+Density-Based Hierarchical Clustering
+\begin{itemize}
+    \item fixed radius
+    \item vary minPoints
+\end{itemize}
+Agglomerative (Bottom-Up) Clustering \\
+\underline{Procedure}
+\begin{enumerate}
+    \item start with each point in its own cluster
+    \item each step merges the two closest clusters
+    \item stop when when every thing in one big cluster
+\end{enumerate}
+\underline{Cost} \(O(n^3d)\)
+
+\subsection{Outliler Detection}
+Model-Based \\
+\underline{Procedure}
+\begin{itemize}
+    \item fit a probabilistic model
+    \item outliers have low probability
+\end{itemize}
+\underline{Problems}
+\begin{itemize}
+    \item mean and var sensitive to outliers
+    \item alternative: quantiles/sequentially remove worse outlier
+    \item hard to define outliers (global vs. local outliers)
+\end{itemize}
+Graphical \\
+\underline{Procedure}
+\begin{itemize}
+    \item look at a plot of the data
+    \item outliers decided by humans
+\end{itemize}
+% TODO: Add graphical outlier detection examples
+Cluster-Based \\
+\underline{Procedure}
+\begin{enumerate}
+    \item cluster the data
+    \item find the points that don't belong to a cluster
+\end{enumerate}
+% TODO: Add cluster-based outlier detection examples
+Supervised Outlier Detection \\
+\underline{Problems}
+\begin{itemize}
+    \item need to know what outliers look like
+    \item may not detect new types of outliers
+\end{itemize}
+
+\subsection{\emph{Note}}
 Density-Based vs. K-Means:
 \begin{itemize}
     \item pros:
@@ -341,6 +459,7 @@ PCA vs. NMF vs. Sparse PCA
 
 \section{Recommender System}
 % TODO: 2017 Final Q1c
+% TODO: L11 Amazon recommender system
 
 \subsection{Content-Based Filtering}
 \begin{itemize}
@@ -570,6 +689,7 @@ Maximum Likelihood Estimation (MLE):
         \item pro: avoid distortion
         \item con: outliers could be real data
     \end{itemize}
+    \item \textbf{outlierness ratio}: \(\frac{\text{avg distance of } x_i \text{ to its KNNs}}{\text{avg distane of its neigbours of } x_i \text{ their KNNs}}\)
 \end{itemize}
 
 \end{multicols*}
