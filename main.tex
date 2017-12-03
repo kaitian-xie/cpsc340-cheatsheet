@@ -27,6 +27,8 @@
 \DeclareMathOperator*{\argmin}{argmin}
 \DeclareMathOperator*{\argmax}{argmax}
 
+\input{codeListingConfig.tex}
+
 \begin{document}
 \tiny
 \begin{multicols*}{5}
@@ -140,6 +142,40 @@ Problems:
 \begin{itemize}
     \item exponentially more points needed when dimensions grows
     \item can be problematic when features have different scales
+\end{itemize}
+
+\section{Ensemble Methods}
+Ensemble Methods
+\begin{itemize}
+    \item classifiers that take other classifiers as input.
+    \item do much better than a single classifier
+\end{itemize}
+Two Types of Ensemble Methods:
+\begin{itemize}
+    \item Boosting --- improves \(E_{train}\) of classifiers with high \(E_{train}\)
+    \item Averaging --- improves \(E_{approx}\) of classifiers with high \(E_{approx}\)
+    \begin{enumerate}
+        \item take predictions from a set of models as input
+        \item take mode of predictions as output
+    \end{enumerate}
+\end{itemize}
+
+\subsection{Random Forests}
+Bootstrapping
+\begin{juliaText}{}
+for i in 1:n
+    j = rand(1:n)
+    X_bootstrap[1,:] = X[j,:]
+\end{juliaText}
+\begin{enumerate}
+    \item generate several bootstrap examples
+    \item fit a classifier to each bootstrap sample
+    \item average predictions at test time
+\end{enumerate}
+Random Trees
+\begin{itemize}
+    \item use a subset of features for each random tree
+    \item each decision stump considers a randomly-chosen feature
 \end{itemize}
 
 \section{Clustering}
