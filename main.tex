@@ -403,6 +403,47 @@ Cost (compute \(\nabla f(w) = X^\intercal Xw - X^\intercal y\))
     \item minibatch size \(\downarrow \) \(\rightarrow \) each iteration is faster, but more iterations needed
 \end{itemize}
 
+\section{Feature Selection}
+
+\subsection{Regression Weight}
+Procedure
+\begin{enumerate}
+    \item fit regression weights \(w\)
+    \item takes features \(j\), where \(|w_j| > \text{a threshold }\)
+\end{enumerate}
+Problems
+\begin{itemize}
+    \item collinearity --- one/both/none will be taken
+\end{itemize}
+
+\subsection{Search and Score}
+Procedure
+\begin{enumerate}
+    \item define score function \(f(s)\) that measures quality of set of features \(S\)
+    \item search for \(S\) with best score
+\end{enumerate}
+Score Function
+\begin{itemize}
+    \item can't be \(E_{train}\) since it goes down as more features added
+    \item \(E_{valid}\) is a good choice
+\end{itemize}
+Problems
+\begin{itemize}
+    \item large \# sets (\(2^d\) sets)
+    \item high optimization bias
+    \item prone to false positives
+\end{itemize}
+Non-Zero Penalties
+\begin{dmath*}
+    score(S) = \frac{1}{2} \sum_{i=1}^{n} (w_s^\intercal x_{is} - y_i)^2 + size(S)
+\end{dmath*}
+\begin{itemize}
+    \item L0-norm can be used for \(size(S)\)
+\end{itemize}
+
+\subsection{Feature Selection Guide}
+\includegraphics[scale=0.1]{feature_selection_guide}
+
 \section{Kernels}
 
 Note: \\
