@@ -511,6 +511,61 @@ L2 Regularization vs. L1 Regularization \\
     \item \(w\) tends to be zero? --- L2: no, L1: yes
 \end{itemize}
 
+\section{Linear Classifiers}
+
+\subsection{Perceptron}
+Procedure
+\begin{enumerate}
+    \item start with \(w^0 = 0\)
+    \item go through examples in any order until make a mistake predicting \(y_i\)
+    \begin{itemize}
+        \item set \(w^{t+1} = w^t + y_i x_i\)
+    \end{itemize}
+    \item keep going until make no errors on training data
+\end{enumerate}
+Intuition
+\begin{dmath*}
+    (w^{t+1})^\intercal x_i = (w^t + x_i)^\intercal x_i = (w^t)\intercal x_i + x_i^\intercal x_i = \text{ old prediction } + ||x_i||^2
+\end{dmath*}
+
+\subsection{Regression}
+0--1 Loss Function
+\begin{itemize}
+    \item \# classification errors
+    \item Can be written as \(||sign(Xw) - y||_0\)
+    \item non-smooth \& non-convex
+    \item hinge loss is used to approximate 0--1 Loss
+\end{itemize}
+Hinge Loss
+\begin{itemize}
+    \item how is \(w^\intercal x_i \geq 1\) or \(w^\intercal x_i \leq 1\) inequality violated
+    \item for \(y_i=+1\): \(\max{\{0,1-w^\intercal x_i\}}\)
+    \item for \(y_i=-1\): \(\max{\{0,1+w^\intercal x_i\}}\)
+    \item for both cases: \(\max{\{0,1-y_i w^\intercal x_i\}}\)
+    \item hinge loss: \(f(w)=\sum_{i=1}^{n}\max{\{0,1-y_i w^\intercal x_i\}}\)
+\end{itemize}
+Logistic Loss
+\begin{dmath*}
+    f(w) = \sum_{i=1}^{n}\log{(1+\exp{(1-y_i w^\intercal x_i)})}
+\end{dmath*}
+\begin{itemize}
+    \item convex and smooth, minimized by gradient descent
+    \item should add regularization
+\end{itemize}
+
+\subsection{Support Vector Machine (SVM)}
+\begin{dmath*}
+    f(w)=\sum_{i=1}^{n}\max{\{0,1-y_i w^\intercal x_i\}} + \frac{\lambda}{2}||w||^2
+\end{dmath*}
+\begin{itemize}
+    \item maximize margin
+    \item minimize constraint violation
+    \item \(\lambda  \) controls trade-off between having large margin and classifying examples correctly
+\end{itemize}
+
+\subsection{\emph{Note}}
+Least squares can't be used since it penalizes for being ``too right''.
+
 \section{Kernels}
 
 Note: \\
