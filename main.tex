@@ -416,8 +416,8 @@ Choosing \(\sigma \) \& \(\lambda \): cross-validation
 Procedure
 \begin{enumerate}
     \item start with initial guess \(w^0\)
-    \item \(w^1 = w^0 - \sigma^0 \nabla f(w^0)\)
-    \item stop if no progress or below some scalar
+    \item \(w^1 = w^0 - \alpha^0 \nabla f(w^0)\)
+    \item \(w^{t+1} = w^t - \alpha^t \nabla f(w^t)\)
 \end{enumerate}
 Cost (compute \(\nabla f(w) = X^\intercal Xw - X^\intercal y\))
 \begin{itemize}
@@ -428,6 +428,43 @@ Cost (compute \(\nabla f(w) = X^\intercal Xw - X^\intercal y\))
 \end{itemize}
 
 \section{Stochastic Gradient Descent}
+Procedure
+\begin{enumerate}
+    \item start with initial guess \(w^0\)
+    \item \(w^1  = w^0 - \alpha^0 \nabla f_i(w^0)\)
+    \item \(w^{t+1} = w^t - \alpha^t \nabla f_i(w^t)\)
+\end{enumerate}
+\begin{itemize}
+    \item random example \(i\)
+    \item \(\nabla f(w^t) = \frac{1}{n} \sum_{i=1}^{n} \nabla f_i(w^t)\)
+\end{itemize}
+
+\subsection{Variance of Random Gradients}
+\begin{dmath*}
+    \frac{1}{n} \sum_{i=1}^{n} ||\nabla f_i(w^t) - \nabla f(w^t)||^2
+\end{dmath*}
+\begin{itemize}
+    \item variance = 0 \(\rightarrow \) every step goes in the right direction \(\Rightarrow \)  outside of region of confusion
+    \item variance is small \(\rightarrow \) most steps go in the right direction \(\Rightarrow \)  just inside region of confusion
+    \item variance is large \(\rightarrow \) many steps go in the wrong direction \(\Rightarrow \) middle of region of confusion, where \(w^*\) lives
+\end{itemize}
+
+\subsection{Effect of Step-Size}
+Step-size \(\downarrow \rightarrow \) effect of variance \(\downarrow \) \\
+For a fixed step-size, SG makes progress until variance is too big
+\begin{itemize}
+    \item rapid progress --- when far from solution
+    \item erratic hehaviour --- confined to a ``ball'' around solution
+    \begin{itemize}
+        \item radius of ball \(\propto \) step-size
+    \end{itemize}
+\end{itemize}
+Choosing step-size
+\begin{itemize}
+    \item must satisfy \(\sum_{t=1}^{\infty} \alpha^t = \infty\) \& \(\sum_{t=1}^{\infty} (\alpha^t)^2 < \infty\)
+    \item can achieve by using a step-size sequence like \(\alpha^t = O(\frac{1}{t})\)
+    \item in practice: add extra parameters \(\alpha^t = \frac{\beta}{(t+\gamma)}\)
+\end{itemize}
 
 \subsection{\emph{Note}}
 \begin{itemize}
