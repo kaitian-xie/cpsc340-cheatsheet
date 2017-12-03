@@ -24,6 +24,9 @@
 
 \graphicspath{{images/}}
 
+\newcommand*{\vertbar}{\rule[-1ex]{0.5pt}{2.5ex}}
+\newcommand*{\horzbar}{\rule[.5ex]{2.5ex}{0.5pt}}
+
 \DeclareMathOperator*{\argmin}{argmin}
 \DeclareMathOperator*{\argmax}{argmax}
 
@@ -567,8 +570,76 @@ Logistic Loss
 Least squares can't be used since it penalizes for being ``too right''.
 
 \section{Kernels}
+\(w = (X^\intercal X + \lambda I)^{-1} X^\intercal y\) can be written as \(w = X^\intercal (X^\intercal X + \lambda I)^{-1} y\)
+\begin{itemize}
+    \item faster if \(n < d\)
+    \item cost: \(O(n^2d + n^3)\) instead of \(O(nd^2 + d^3)\)
+\end{itemize}
 
-Note: \\
+\subsection{Grand Matrix}
+\begin{dmath*}
+    K = XX^\intercal=
+    \begin{bmatrix}
+       \horzbar &  x_1^\intercal & \horzbar \\
+       \horzbar &  x_2^\intercal & \horzbar \\
+        & \vdots & \\
+        \horzbar &  x_n^\intercal & \horzbar \\
+    \end{bmatrix}
+    \begin{bmatrix}
+        \vertbar &  \vertbar & & \vertbar \\
+        x_1 & x_2 & \cdots &  x_n \\
+        \vertbar & \vertbar & & \vertbar \\
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        x_1^\intercal x_1 & x_1^\intercal x_2 & \cdots & x_1^\intercal x_n \\
+        x_2^\intercal x_1 & x_2^\intercal x_2 & \cdots & x_2^\intercal x_n \\
+        \vdots & \vdots & \ddots & \vdots \\
+        x_n^\intercal x_1 & x_n^\intercal x_2 & \cdots & x_n^\intercal x_n\\
+    \end{bmatrix}
+\end{dmath*}
+\begin{itemize}
+    \item inner products between all training examples
+    \item used as similarities
+\end{itemize}
+
+\subsection{Kernel Trick}
+\begin{dmath*}
+    \hat{y}_{(t \times 1)} = \hat{Z}w = \hat{Z} Z^\intercal (Z Z^\intercal + \lambda I)^{-1} y = \hat{K}_{(t \times n)} (K + \lambda I)_{(n \times n)}^{-1} y_{(n \times 1)}
+\end{dmath*}
+\begin{itemize}
+    \item \(w = Z^\intercal (Z Z^\intercal + \lambda I)^{-1} y\)
+    \item don't need to compute the basis \(z_i\) explicitly
+    \item only need kernel function that computes \(k(x_i,x_j) = z_i^\intercal z_j\)
+    \item compute dot products without features
+\end{itemize}
+
+\subsection{Kernel Functions}
+Polynomial Kernel Function
+\begin{itemize}
+    \item \(K_{ij} = (1+x_i^\intercal x_j)^p\)
+    \item \(\hat{K_{ij}} = (1+\hat{x_i}^\intercal x_j)^p\)
+\end{itemize}
+Cost
+\begin{itemize}
+    \item training
+    \begin{itemize}
+        \item form \(K\) --- \(O(n^2d\)
+        \item invert \(K\) --- \(O(n^3)\)
+        \item total --- \(O(n^2d + n^3\)
+    \end{itemize}
+    \item testing
+    \begin{itemize}
+        \item form \(\hat{K}\) --- \(O(ndt)\)
+        \item total --- \(O(ndt)\)
+    \end{itemize}
+\end{itemize}
+Gaussian RBF Kernel Function
+\begin{itemize}
+    \item \(K_{ij} = \exp(- \frac{||x_i-x_j||^2}{2\sigma^2})\)
+\end{itemize}
+
+\subsection{\emph{Note}}
 RBF Kernels vs. Linear Kernels:
 \begin{itemize}
     \item pro: fit more complicated shape
