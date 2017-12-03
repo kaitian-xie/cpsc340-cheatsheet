@@ -311,6 +311,43 @@ Density-Based vs. K-Means:
     \end{itemize}
 \end{itemize}
 
+\section{Regression}
+
+\subsection{Linear Regression}
+Change of Basis
+\begin{dmath*}
+    Z =
+    \begin{bmatrix}
+        1 & x_{11} & \cdots & x_{1n} \\
+        1 & x_{21} & \cdots & x_{2n} \\
+        \vdots & \vdots & \vdots & \vdots \\
+        1 & x_{n1} & \cdots & x_{nn} \\
+    \end{bmatrix}
+\end{dmath*}
+
+\subsection{Polynomial Regression}
+Change of Basis
+\begin{dmath*}
+    Z =
+    \begin{bmatrix}
+        1 & x_1 & x_1^2 & x_1^p \\
+        1 & x_2 & x_2^2 & x_2^p \\
+        \vdots & \vdots & \vdots & \vdots \\
+        1 & x_n & x_n^2 & x_n^p \\
+    \end{bmatrix}
+\end{dmath*}
+
+\subsection{Finding \(w\)}
+\begin{dmath*}
+    (X^\intercal X) w = X^\intercal y
+\end{dmath*}
+\underline{Cost}
+\begin{itemize}
+    \item \(O(nd^2)\) --- \(X^\intercal X\)
+    \item \(O(nd\) --- \(X^\intercal y\)
+    \item \(O(d^3)\) --- total cost
+\end{itemize}
+
 \section{Kernels}
 
 Note: \\
