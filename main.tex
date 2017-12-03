@@ -337,18 +337,62 @@ Change of Basis
     \end{bmatrix}
 \end{dmath*}
 
+\subsection{Robust Regression}
+\begin{dmath*}
+    f(w) = \sum_{i=1}^{n} |w^\intercal x_i - y_i| = ||Xw - y||_1
+\end{dmath*}
+\begin{itemize}
+    \item less sensitive to outliers
+\end{itemize}
+Smooth Approximation \\
+\underline{Huber Loss} \\
+\includegraphics[scale=0.2]{huber_loss}
+\begin{align*}
+    f(w) &= \sum_{i=1}^{n} h(x^\intercal x_i - y_i) \\
+    h(r_i) &=
+    \begin{cases}
+        \frac{1}{2}r_i^2 \text{ for \(|r_i| \leq \epsilon \)}\\
+        \epsilon (|r_i|-\frac{1}{2} \epsilon) \text{ otherwise}
+    \end{cases}
+\end{align*}
+
+\subsection{Brittle Regression}
+\begin{dmath*}
+    f(w) = ||Xw - y||_{\infty}
+\end{dmath*}
+Smooth Approximation \\
+\underline{Log-Sum_Exp}
+\begin{dmath*}
+    \max_i \{z_i\} \approx \log(\sum_i \exp(z_i))
+\end{dmath*}
+
 \subsection{Finding \(w\)}
 \begin{dmath*}
     (X^\intercal X) w = X^\intercal y
 \end{dmath*}
-\underline{Cost}
+Cost
 \begin{itemize}
     \item \(O(nd^2)\) --- \(X^\intercal X\)
     \item \(O(nd)\) --- \(X^\intercal y\)
-    \item \(O(d^3)\) --- total cost
+    \item \(O(d^3)\) --- solve \(d \times d\) system
+    \item \(O(nd^2 + d^3)\) -- total
 \end{itemize}
+Alternative: gradient descent
 
 \section{Gradient Descent}
+Procedure
+\begin{enumerate}
+    \item start with initial guess \(w^0\)
+    \item \(w^1 = w^0 - \sigma^0 \nabla f(w^0)\)
+    \item stop if no progress or below some scalar
+\end{enumerate}
+Cost (compute \(\nabla f(w) = X^\intercal Xw - X^\intercal y\))
+\begin{itemize}
+    \item \(O(nd)\) --- \(Xw\)
+    \item \(O(nd)\) --- \(X^\intercal Xw\)
+    \item \(O(nd)\) --- \(X^\intercal y\)
+    \item \(O(ndt)\) --- total
+\end{itemize}
 
 \section{Stochastic Gradient Descent}
 
