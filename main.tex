@@ -29,6 +29,7 @@
 
 \DeclareMathOperator*{\argmin}{argmin}
 \DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\composition}{I}
 
 \input{codeListingConfig.tex}
 
@@ -1016,8 +1017,13 @@ ISOMAP vs. t-SNE \\
 \includegraphics[scale=0.15]{isomap_vs_t-sne}
 
 \section{Neural Networks}
+
+\subsection{Deep Learning}
+\begin{center}
+    \includegraphics[scale=0.15]{2_hidden_layer_deep_learning}
+\end{center}
 \begin{dmath*}
-    f(W^{(1)},W^{(2)}) = \frac{1}{2} \sum_{i=i}^{n} (w^\intercal h(W^{(2)}h(W^{(1)}x_i))-y_i)^2 + \frac{\lambda}{2}||w||^2 + \frac{\lambda_1}{2} ||W^{(1)}||_F^2 + \frac{\lambda_2}{2} ||W^{(2)}||_F^2
+    f(W^{(1)},W^{(2)}) = \frac{1}{2} \sum_{i=i}^{n} (w^\intercal h (\underbrace{W^{(2)}h(\underbrace{W^{(1)}x_i}_{z_i^{(1)}}}_{z_i^{(2)}}))-y_i)^2 + \frac{\lambda}{2}||w||^2 + \frac{\lambda_1}{2} ||W^{(1)}||_F^2 + \frac{\lambda_2}{2} ||W^{(2)}||_F^2
 \end{dmath*}
 \begin{itemize}
     \item \(W^1\) is \(k_1 \times d\), \(W^2\) is \(k_2 \times k_1\), and \(w\) is \(k_2 \times 1\)
@@ -1025,10 +1031,85 @@ ISOMAP vs. t-SNE \\
     \item \(\lambda \uparrow \) \(\rightarrow \) \(E_{train} \uparrow \text{ but } E_{approx} \downarrow \)
     \item depth \(\uparrow \) \(\rightarrow \) \(E_{train} \uparrow \text{ but } E_{approx} \downarrow \)
 \end{itemize}
-
-Note:
+Adding Bias Variables
 \begin{itemize}
-    \item deep learning is sensitive to initialization \(\because\) it's non-convex
+    \item \(y_i = \sum\limits_{c=1}^{k} w_c h(W_c x_i + \beta_c) + \beta\)
+    \item bias toward \(h(z_{ic})\) is either 0 or 1
+\end{itemize}
+Backpropagation
+\begin{itemize}
+    \item objective function: \(f(w,W) = \frac{1}{2} \sum\limits_{i=1}^{n} (w^\intercal h(W x_i) - y_i)^2\)
+    \item compute gradient of random example \(i\), update both \(w\) and \(W\)
+    \item highly non-convex and difficult to tune
+    \item cost of backpropagation:
+    \begin{itemize}
+        \item forward pass (\(m\) layers, all \(z_i\) have \(k\) elements): \(O(dk + mk^2)\)
+        \item backward pass: same as forward pass
+    \end{itemize}
+    \item insights
+    \begin{itemize}
+        \item local minima are \emph{not} a problem
+        \item if deep and wide enough, all local minima are good
+        \item hard to get SG to find a local minimum
+    \end{itemize}
+\end{itemize}
+\includegraphics[scale=0.12]{backpropagation} \\
+Parameter Initialization
+\begin{itemize}
+    \item cautions:
+    \begin{itemize}
+        \item can't initialize weights in same layer to same value, or they will stay the same
+        \item can't initialize weights too large, it will take too long to learn
+    \end{itemize}
+    \item traditional random initialization:
+    \begin{itemize}
+        \item initialize bias variables to 0
+        \item sample from standard normal divided by \(10^5\)
+        \begin{itemize}
+            \item \(w = 0.0001 \times randon(k, 1)\)
+        \end{itemize}
+        \item performing multiple initializations are \emph{not} important
+    \end{itemize}
+    \item recent initializations:
+    \begin{itemize}
+        \item standardize initial \(z_i\)
+        \item different initialization in each layer
+        \item make variance of \(z_i\) the same across layers
+    \end{itemize}
+\end{itemize}
+Setting Step-Size
+\begin{itemize}
+    \item manual babysitting
+    \begin{enumerate}
+        \item run SG with a fixed step-size
+        \item occasionally measure error
+        \item if error not deceasing, decrease step-size
+    \end{enumerate}
+    \item bias step-size multiplier: use bigger step-size for bias variables
+    \item momentum (usually \(\beta^t = 0.9\))
+    \begin{dmath*}
+        w^{t+1} = w^t - \alpha^t \nabla f_i(w^t) + \underbrace{\beta^t (w^t - w^{t-1})}_{\text{adds previous direction}}
+    \end{dmath*}
+\end{itemize}
+Vanishing Gradient Problem
+\begin{itemize}
+    \item in sigmoid, away from the origin, the gradient is nearly zero
+    \item gradients nearly zero everywhere in deep networks
+    \item solution: hinge-like loss (ReLU)
+\end{itemize}
+Trade-off
+\begin{itemize}
+    \item depth \(\uparrow \rightarrow \) \(E_{train} \downarrow \text{ but } E_{approx} \uparrow\)
+\end{itemize}
+Regularization
+\begin{itemize}
+    \item L2 regularization: \(f(w, W^{(3)}, W^{(2)}, W^{(1)}) = \frac{1}{2} \sum\limits_{i=1}^{n} (w^\intercal h(W^{(3)} h(W^{(2)} h(W^{(1)} x_i))) - y_i)^2\)
+    \item hyper-parameter optimization: optimize \(E_{validation}\) in terms of \(\lambda_1, \lambda_2, \lambda_3, \lambda_4\)
+    \item early stopping
+    \begin{enumerate}
+        \item monitor \(E_{valid}\) while running SG
+        \item stop if \(E_{valid}\) starts increasing
+    \end{enumerate}
 \end{itemize}
 
 \subsection{Convolutional Neural Networks}
@@ -1038,6 +1119,14 @@ Motivation:
     \item exploit structure in data
     \item reduce overfitting
 \end{itemize}
+
+\subsection{\emph{Note}}
+Why Sigmoid for \(h(z_i)\)
+\begin{itemize}
+    \item each \(h(z_i\) can be viewed as a binary feature
+    \item sigmoid is a smooth approximation to binary features
+\end{itemize}
+Deep learning is sensitive to initialization \(\because\) it's non-convex
 
 \section{Math}
 Norms:
@@ -1104,6 +1193,10 @@ Maximum Likelihood Estimation (MLE):
     \item \(f(x) = - \sum_{i=1}^{n}\log{(p(y_i|x_i,w))}\)
     \item runtime: \(O(nd)\)
 \end{itemize}
+\(m\) Layer Deep Learning \\
+$y_i = w^\intercal (\composition\limits_{l=1}^{m} h(W^{(l)} x_i))$
+Rectified Linear Units (ReLU)
+\includegraphics[scale=0.15]{relu}
 
 \section{Plots}
 \begin{itemize}
