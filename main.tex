@@ -683,6 +683,64 @@ RBF Kernels vs. Linear Kernels:
     \item con: danger of overfitting
 \end{itemize}
 
+\section{Multi-Class Classification}
+
+\subsection{One vs. All Classification}
+Procedure
+\begin{itemize}
+    \item training
+    \begin{enumerate}
+        \item for each class \(c\), train binary classifier to predict whether example belongs to class \(c\)
+        \item \(k\) classifiers for \(k\) classes
+        \item
+        \(
+            W =
+            \begin{bmatrix}
+                \vertbar & \vertbar & & \vertbar \\
+                w_1 & w_2 & \cdots & w_n \\
+                \vertbar & \vertbar & & \vertbar
+            \end{bmatrix}_{d \times k}
+        \)
+    \end{enumerate}
+    \item prediction
+    \begin{enumerate}
+        \item apply \(k\) classifiers to get a score for each class \(c\) (\(w_c^\intercal x_i\))
+        \begin{itemize}
+            \item ideal situation: \(sign(w_c^\intercal x_i) = +1\) for one class and \(sign(w_c^\intercal x_i) = -1\) for others
+            \item in practice might be \(+1\) for multiple classes or no class
+        \end{itemize}
+        \item return \(c\) with the highest score ((\(\max\{w_c^\intercal x_i\}\))
+    \end{enumerate}
+\end{itemize}
+\(W_{y_i}\) used as column \(y_i\) of \(W\) (column of correct class label), but \(w_c\) is not trained so that largest \(w_c^\intercal x_i\) would be \(w_{y_i}^\intercal x_i\) since each classifier is just trying to get the sign right.
+
+\subsection{Multi-Class SVMs}
+Goal: To define a loss that encourages largest \(w_c^\intercal x_i\) to be \(w_{y_i}^\intercal x_i\) \\
+Two Ways to Measure Constraint Violation
+\begin{itemize}
+    \item Sum: \(\sum\limits_{c \neq y_i} \max\{0, 1 - w_{y_i}^\intercal x_i + w_c^\intercal x_i\}\)
+    \item Max: \(\max\limits_{c \neq y_i}\{\max\{0, 1 - w_{y_i}^\intercal x_i + w_c^\intercal x_i\}\}\)
+\end{itemize}
+\begin{itemize}
+    \item Sum penalizes for each \(c\) that violates the constraint
+    \item Max penalizes for one \(c\) that violates the constraint the most
+    \item both convex upper bounds on 0--1 loss
+\end{itemize}
+Softmax
+\begin{dmath*}
+    -w_{y_i}^\intercal x_i + \log(\sum_{c=1}^{k} \exp(w_c^\intercal x_i))
+\end{dmath*}
+Objective Function
+\begin{dmath*}
+    f(W) = \sum_{i=1}^{n}[-w_{y_i}^\intercal x_i + \log(\sum_{c=1}^{k} \exp(w_c^\intercal x_i))] + \frac{\lambda}{2} \sum_{j=1}^{d} \sum_{c=1}^{k} w_{jc}^2
+\end{dmath*}
+\begin{itemize}
+    \item \(-w_{yi}^\intercal x_i\) makes \(w_c^\intercal x_i\) \emph{big} for \emph{correct} label
+    \item \(\log(\sum\limits_{c=1}^{k}\exp(w_c^\intercal x_i))\) is log-sum-exp approximation trying to make \(w_c^\intercal x_i\) small for \emph{all} labels
+    \item \(\sum_{j=1}^{d} \sum_{c=1}^{k} w_{jc}^2\) is L2 regularization of \(w\)
+\end{itemize}
+% TODO: multi-label classification
+
 \section{PCA}
 Objective Function:
 \begin{align*}
@@ -951,6 +1009,10 @@ Norms:
     \item \(L_{\infty}\) or ``max'' norm
     \begin{equation*}
         ||r||_{\infty} = \max_j{\{|r_j|}\}
+    \end{equation*}
+    \item ``Frobenius'' norm
+    \begin{equation*}
+        ||W||_F = \sqrt{\sum_{j=1}^{d} \sum_{c=1}^{k} W_{jc}^2}
     \end{equation*}
 \end{itemize}
 Objective functions and derivatives:
