@@ -741,6 +741,50 @@ Objective Function
 \end{itemize}
 % TODO: multi-label classification
 
+\section{MLE \& MAP}
+
+\subsection{Sigmoid Function}
+\begin{dmath*}
+    h(z_i) = \frac{1}{1+\exp(-z_i)}
+\end{dmath*}
+\begin{itemize}
+    \item for \(p(y_i=+1|z_i)\), \(h(z_i)\)
+    \item for \(p(y_i=-1|z_i)\), \(h(-z_i) =\)
+    \item for both \(p(y_i|x_i) = h(y_i z_i)\)
+\end{itemize}
+Convert \(z = w^\intercal x_i\) into Probability of \(y\)
+\begin{dmath*}
+    p(y_i|w,x_i) = h(y_i w^\intercal x_i) = \frac{1}{1+\exp(-y_i w^\intercal x_i)}
+\end{dmath*}
+
+\subsection{Maximum Likelihood Estimation (MLE)}
+\begin{dmath*}
+    w^* \in \argmax_w \{p(D|w)\}\equiv \argmin_w\{-\log(p(D|w))\} \equiv \argmin_w\{-\sum_{i=1}^{n} \log(p(D_i|w))\}
+\end{dmath*}
+\begin{itemize}
+    \item If data is \(n\) IID examples then \(p(D|w) = \prod\limits_{i=1}^{n} p(D_i|w)\)
+\end{itemize}
+Problems
+\begin{itemize}
+    \item MLE tends to be overfitting
+    \item data could be very likely for some very unlikely \(w\)
+\end{itemize}
+
+\subsection{Maximum a Posteriori (MAP) Estimation}
+\begin{dmath*}
+    w^* \in \argmax_w \{p(w|D)\} \equiv \argmax_w \{\prod_{i=1}^{n}[p(D_i|w)] p(w) \} \equiv \argmin_w \{- \sum_{i=1}^{n}[\underbrace{\log(p(D_i|w))}_{\text{loss}}] - \underbrace{\log(p(w))}_{\text{regularizer}}\} \equiv \argmin_w \{- \sum_{i=1}^{n}[\log(p(D_i|w))] - \frac{\lambda}{2} ||w||^2\}
+\end{dmath*}
+MLE \& MAP
+\begin{dmath*}
+    \underbrace{p(w|D)}_{\text{posterior}} = \frac{p(D|w)p(w)}{p(D)} \propto \underbrace{p(D|w)}_{\text{likelihood}} \underbrace{p(w)}_{\text{prior}}
+\end{dmath*}
+\begin{itemize}
+    \item prior --- ``belief'' that \(w\) is correct before seeing data
+    \item prior can reflect that complex models are likely to overfit
+\end{itemize}
+
+% TODO: the rest of L25
+
 \section{PCA}
 Objective Function:
 \begin{align*}
