@@ -1119,6 +1119,37 @@ Motivation:
     \item exploit structure in data
     \item reduce overfitting
 \end{itemize}
+1D Convolution
+\begin{itemize}
+    \item input: \(x\) vector of length \(n\)
+    \item filter: \(w\) vector of length \(2m+1\)
+    \item output: \(z\) vector of length \(n\)
+    \begin{itemize}
+        \item \(z_i = \sum\limits_{j=-m}^{m} w_j x_{i+j}\)
+    \end{itemize}
+\end{itemize}
+1D Convolution Example \\
+\includegraphics[scale=0.12]{1d_convolution_example}
+Boundary Issue Solution
+\begin{itemize}
+    \item just ignore and return a shorter vector
+    \item assign values past boundaries \\
+    \includegraphics[scale=0.12]{past_boundaries}
+\end{itemize}
+Convolution as Matrix Multiplication \\
+\includegraphics[scale=0.12]{convolution_as_matrix_multiplication}
+\begin{itemize}
+    \item the shorter \(w\), the more sparse the matrix
+\end{itemize}
+Three Types of Layers
+\begin{itemize}
+    \item fully connected: usual neural network layer with unrestricted \(W\) \\
+    \includegraphics[scale=0.1]{fully_connected}
+    \item convolutional: restrict \(W\) to results of several convolutions \\
+    \includegraphics[scale=0.1]{convolutional}
+    \item pooling: combine results of convolutions (e.g. max pooling) \\
+    \includegraphics[scale=0.1]{max_pooling}
+\end{itemize}
 
 \subsection{\emph{Note}}
 Why Sigmoid for \(h(z_i)\)
