@@ -892,6 +892,27 @@ Objective Function
     \item \(\sum_{j=1}^{d} \sum_{c=1}^{k} w_{jc}^2\) is L2 regularization of \(w\)
 \end{itemize}
 
+\subsection{\emph{Note}}
+Cost of Multinomial Logistic Regression (\(T\) iterations) \\
+\begin{itemize}
+    \item training
+    \begin{itemize}
+        \item \(O(dk)\) --- evaluate function for one example
+        \item \(O(ndk)\) --- evaluate function for all examples
+        \item \(O(T)\) --- \# iterations of gradient descent
+        \item \(O(ndkT)\) --- total
+    \end{itemize}
+    \item classify \(t\) test examples
+    \begin{itemize}
+        \item \(O(tdk)\) --- compute \(\hat{X} W\)
+    \end{itemize}
+\end{itemize}
+Multi-Class vs. Multi-Label
+\begin{itemize}
+    \item multi-class: one ``true'' label
+    \item multi-label: several/no correct labels
+\end{itemize}
+
 \section{MLE \& MAP}
 
 \subsection{Sigmoid Function}
@@ -1050,6 +1071,20 @@ L1-regularized PCA:
 PCA \& L0 Regularization \\
 \(f(Z,W) = \cdots + \frac{\lambda_W}{2} ||W||_0\) \\
 \(\lambda_W\) has effect on trade-off \(\because \) \(Z\) can't do anything to compensate \\
+A5 Q1.2 \\
+\begin{dmath*}
+    f(Z,W) = \frac{1}{2} \sum_{(i,j) \in R} [(w_j^\intercal z_i-x_{ij})^2] + \lambda_W \sum_{j=1}^{d} ||w_j||_1 \frac{\lambda_Z}{2} \sum_{i=1}^{n} ||z_i||^2
+\end{dmath*}
+\begin{itemize}
+    \item \(\lambda_W\) makes \(W\) more sparse but doesn't affect
+    \item \(\lambda_Z\) has no influence on sparsity of \(W\) and \(Z\)
+    \item \(\lambda_Z \uparrow \rightarrow E_{train} \uparrow \text{ but } E_{approx} \downarrow \)
+    \item \(k \uparrow \rightarrow \) model more complicated \(E_{train} \uparrow \text{ but } E_{arppox} \downarrow \)
+    \item suppose \(X\) contains \(+1\) or \(-1\) \\
+    \begin{dmath*}
+        f(Z,W) = \sum_{(i,j) \in R} \log(1+\exp(-x_{ij}w_j^\intercal z_i)) + \cdots
+    \end{dmath*}
+\end{itemize}
 ISOMAP vs. PCA
 \begin{itemize}
     \item pro: can learn non-linear projections (e.g. manifold)
@@ -1066,11 +1101,14 @@ PCA vs. NMF vs. Sparse PCA
     \item NMF --- non-negative \& sparsity
     \item Sparse PCA --- zeros \& non-orthonormal
 \end{itemize}
+Linear Regression (\(d=1\)) vs. PCA (\(d=2 k=1\)) \\
+They don't find the same line. In linear regression we only minimize the squared distances in one dimension (to the target
+\(y\)) while in PCA we care about the squared distances in both dimensions (another minor difference is that PCA assumes centered data). \\
+Normal Equations \& Non-Negative Least Squares Problems \\
+Normal equations can't solve non-negative least squares problems \(\because \) they don't respect non-negativity constraint.
 
 \section{Recommender System}
 % TODO: 2017 Final Q1c
-% TODO: L11 Amazon recommender system
-
 \subsection{Content-Based Filtering}
 \begin{itemize}
     \item supervised learning --- use features for predictions
@@ -1097,6 +1135,8 @@ PCA vs. NMF vs. Sparse PCA
 \end{itemize}
 
 \subsection{Note}
+Collaborative Filtering Not Good at Predictions for New Items \\
+Because it relies only on rating data to make predictions, and a new item has few/no ratings available in the user-item rating matrix. \\
 Problems:
 \begin{itemize}
     \item diversity --- how different are the recommendations?
@@ -1263,6 +1303,7 @@ Regularization
         \item monitor \(E_{valid}\) while running SG
         \item stop if \(E_{valid}\) starts increasing
     \end{enumerate}
+    \item dropout
 \end{itemize}
 
 \subsection{Convolutional Neural Networks}
@@ -1303,12 +1344,14 @@ Three Types of Layers
     \item pooling: combine results of convolutions (e.g. max pooling) \\
     \includegraphics[scale=0.1]{max_pooling}
 \end{itemize}
+Trade-off (width of convolutions): width \(\uparrow \rightarrow E_{train} \downarrow \text{ but } E_{approx} \uparrow\)
 
 \subsection{\emph{Note}}
 Why Sigmoid for \(h(z_i)\)
 \begin{itemize}
     \item each \(h(z_i\) can be viewed as a binary feature
     \item sigmoid is a smooth approximation to binary features
+    \item introduces non-linearity
 \end{itemize}
 Deep learning is sensitive to initialization \(\because\) it's non-convex
 
@@ -1401,7 +1444,7 @@ Maximum Likelihood Estimation (MLE) \\
 \end{itemize}
 \(m\) Layer Deep Learning \\
 $y_i = w^\intercal (\composition\limits_{l=1}^{m} h(W^{(l)} x_i))$ \\
-Rectified Linear Units (ReLU)
+Rectified Linear Units (ReLU) \\
 \includegraphics[scale=0.15]{relu}
 
 \section{Plots}
