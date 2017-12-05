@@ -37,7 +37,7 @@
 \tiny
 \begin{multicols*}{5}
 \section{Validation}
-Validation Techniques:
+Validation Techniques
 \begin{itemize}
     \item fixed-validation:
     \begin{itemize}
@@ -55,7 +55,7 @@ Validation Techniques:
         \item repeat \(n\) times then average
     \end{itemize}
 \end{itemize}
-Model Selection:
+Model Selection
 \begin{itemize}
     \item optimization bias is small when a few models are compared
     \item optimization bias is large when a lot of models are compared
@@ -102,7 +102,7 @@ test_error = 1/500 sum(y_hat - y_test)^2
         \item \# parameters grows with \(n\)
         \item more data \(\rightarrow \)  more complicated
     \end{itemize}
-    \item examples:
+    \item examples
     \begin{itemize}
         \item Decision Tree (parametric --- depth given)
         \item Decision Tree of Depth \(\sqrt{n}\) (non-parametric)
@@ -137,7 +137,7 @@ Effect on KNN: Accuracy of KNN affected \(\because \) data standardization chang
 \section{Decision Tree}
 Decision Stump: (\(n\) objects, \(d\) features, \(t\) thresholds)
 \begin{itemize}
-    \item cost:
+    \item cost
     \begin{itemize}
         \item cost: \(O(ndt)\) (without sorting, computing score for \(dt\) rules)
         \item cost: \(O(n^2d)\) (consider only features)
@@ -389,11 +389,11 @@ K-Means Fails to Find True Clusters: Two clusters are non-convex and not far way
 Effect of Two Features of Different Scales: The clusters would be almost exclusively be based on what is happening with the larger feature. (This is assuming that you don't have a huge variance in the smaller feature.) \\
 Density-Based vs. K-Means
 \begin{itemize}
-    \item pros:
+    \item pros
     \begin{itemize}
         \item don't need to pre-specify \# clusters
     \end{itemize}
-    \item cons:
+    \item cons
     \begin{itemize}
         \item no loss function interpretation
         \item two hyper parameters to set
@@ -963,9 +963,9 @@ Objective Function:
     &= ||ZW-X||_F^2
 \end{align*}
 Matrix Factorization: \(X_{n \times d} \approx Z_{n \times k} W_{k \times d}\) \\
-% \begin{dmath*}
-%     f(W,Z) = \sum_{i=1}^{n} \sum_{j=1}^{d} (w_j^\intercal z_i - x_{ij})^2 + \frac{\lambda_W}{2} ||W|_F^2 \frac{\lambda_Z}{2} ||Z||_F^2
-% \end{dmath*}
+\begin{dmath*}
+    f(W,Z) = \sum_{i=1}^{n} \sum_{j=1}^{d} (w_j^\intercal z_i - x_{ij})^2 + \frac{\lambda_W}{2} ||W|_F^2 \frac{\lambda_Z}{2} ||Z||_F^2
+\end{dmath*}
 Alternating Minimization:
 \begin{itemize}
     \item \(\nabla_W f(W,Z) = Z^\intercal Z W - Z^\intercal X\),so \(W = (Z^\intercal Z)^{-1} (Z^\intercal X)\)
@@ -1009,19 +1009,19 @@ NMF
     \item leads to sparsity
     \item regularizes \(W\)
 \end{itemize}
-Projected Gradient:
+Projected Gradient
 \begin{enumerate}
     \item \(w^{t+\frac{1}{2}} = w^t - \sigma^t \nabla f(w^t)\)
     \item \(w_j^{t+1} = \max \{0, w_j^{t+\frac{1}{2}}\} \)
     \item repeat
 \end{enumerate}
-Ways to Use Projected Gradient:
+Ways to Use Projected Gradient
 \begin{itemize}
     \item alternate between projected gradient steps between \(W\) and \(Z\)
     \item run projected gradient on both at once
     \item sample random \(i\) and \(j\) and do \emph{stochastic} gradient descent
 \end{itemize}
-Problems of NMF:
+Problems of NMF
 \begin{itemize}
     \item non-convex
     \item sensitive to initialization
@@ -1029,19 +1029,19 @@ Problems of NMF:
 \end{itemize}
 
 \subsection{Variants of PCA}
-L2-regularized PCA:
+L2-regularized PCA
 \begin{dmath*}
     f(W,Z) = \frac{1}{2} ||ZW-X||_F^2 + \frac{\lambda_1}{2} ||W||_F^2 + \frac{\lambda_2}{2} ||Z||_F^2
 \end{dmath*}
 \begin{itemize}
     \item need to regularize \emph{both} \(W\) and \(Z\) otherwise one will compensate the other
 \end{itemize}
-L1-regularized PCA:
+L1-regularized PCA
 \begin{dmath*}
     f(W,Z) = \frac{1}{2} ||ZW-X||_F^2 + \frac{\lambda_1}{2} \sum_{i=1}^{n} ||z_i||_1 + \frac{\lambda_2}{2} \sum_{j=1}^{d} ||w_j||_1
 \end{dmath*}
 \begin{itemize}
-    \item pros:
+    \item pros
     \begin{itemize}
         \item negative coefficients usually make sense
         \item can set \(\lambda_1\) and \(\lambda_2\) to control sparsity
@@ -1104,7 +1104,6 @@ Normal Equations \& Non-Negative Least Squares Problems \\
 Normal equations can't solve non-negative least squares problems \(\because \) they don't respect non-negativity constraint.
 
 \section{Recommender System}
-% TODO: 2017 Final Q1c
 \subsection{Content-Based Filtering}
 \begin{itemize}
     \item supervised learning --- use features for predictions
