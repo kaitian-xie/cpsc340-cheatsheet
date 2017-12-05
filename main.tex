@@ -370,14 +370,12 @@ Graphical \\
     \item look at a plot of the data
     \item outliers decided by humans
 \end{itemize}
-% TODO: Add graphical outlier detection examples
 Cluster-Based \\
 \underline{Procedure}
 \begin{enumerate}
     \item cluster the data
     \item find the points that don't belong to a cluster
 \end{enumerate}
-% TODO: Add cluster-based outlier detection examples
 Supervised Outlier Detection \\
 \underline{Problems}
 \begin{itemize}
@@ -476,8 +474,6 @@ Cost
 \end{itemize}
 Alternative: gradient descent
 
-% TODO: L16 Complexity Pentalties
-
 \section{Gaussian RBFs}
 Radial Basis Functions (RBFs)
 \begin{dmath*}
@@ -504,7 +500,26 @@ Predictions
 \end{bmatrix}_{n \times t}
 \end{dmath*}
 Regularization: L2 regularization
-Choosing \(\sigma \) \& \(\lambda \): cross-validation
+Choosing \(\sigma \) \& \(\lambda \): cross-validation \\
+Cost
+\begin{itemize}
+    \item training
+    \begin{itemize}
+        \item \(O(n^2d\) --- form Z
+        \begin{itemize}
+            \item \(O(n^2)\) --- \# distances
+            \item \(O(d)\) --- \# features
+        \end{itemize}
+        \item \(O(n^3)\) --- compute \(Z^\intercal Z\) and invert it
+        \item \(O(n^2d+n^3)\) --- total
+    \end{itemize}
+    \item classify \(t\) test examples
+    \begin{itemize}
+        \item \(O(nd)\) --- compare the distance between 1 test example and each training example
+        \item \(O(t)\) --- \(t\) test examples
+        \item \(O(ndt)\) --- total
+    \end{itemize}
+\end{itemize}
 
 \section{Gradient Descent}
 Procedure
@@ -565,6 +580,24 @@ Cost of Polynomial Basis (\(d = 1\)): \(O(np^2+p^3)\) \\
 Regression tree is a good choice when data is the data is generated, or well modeled by a piecewise linear function. In this case, the regression tree allows for a different linear regression to be fit to each sub-function, while the linear least squares model attempts to fit all of the data at once. \\
 Minibatch size \(\downarrow \) \(\rightarrow \) each iteration is faster, but more iterations needed
 
+\section{Complexity Penalties}
+
+\subsection{Information Criteria}
+\begin{dmath*}
+    score(w,p) = \frac{1}{2} ||Z_p w - y||^2 + \lambda p
+\end{dmath*}
+\begin{itemize}
+    \item \(\lambda > 0\) controls how strong the penalty is
+    \item \(\lambda = 1\) is called Akaike Information Criteria (AIC)
+\end{itemize}
+
+\subsection{Bayesian Information Criteria}
+BIC = \(\lambda = \frac{1}{2} \log(n)\)
+\begin{itemize}
+    \item \(n \rightarrow \infty \), recovers ``true'' model
+    \item try a bunch of \(\lambda \) in practice
+\end{itemize}
+
 \section{Feature Selection}
 
 \subsection{Regression Weight}
@@ -603,6 +636,19 @@ Non-Zero Penalties
     \item L0-norm can be used for \(size(S)\)
 \end{itemize}
 
+\subsection{Forward Selection}
+Procedure
+\begin{enumerate}
+    \item start with empty set \(S = []\)
+    \item add each possible feature \(j\) to \(S\),then compute score
+    \item find \(j\) that improves the most
+    \begin{itemize}
+        \item add it to \(S\) then go back to 2
+        \item if no \(j\) improves the score, stop
+    \end{itemize}
+\end{enumerate}
+Not guaranteed to find the best, but less complex than search and score \(O(d^2)\), and less overfitting and fewer false positives.
+
 \subsection{Feature Selection Guide}
 \includegraphics[scale=0.12]{feature_selection_guide}
 
@@ -610,6 +656,8 @@ Non-Zero Penalties
 \includegraphics[scale=0.12]{ensemble_feature_selection}
 
 \subsection{\emph{Note}}
+\(E_{valid}\) Not Used for Feature Selection \\
+\(E_{valid}\) tends to give many false positives due to optimization bias. \\
 Regression Weights vs. Search and score
 \begin{itemize}
     \item pro: fast
@@ -843,7 +891,6 @@ Objective Function
     \item \(\log(\sum\limits_{c=1}^{k}\exp(w_c^\intercal x_i))\) is log-sum-exp approximation trying to make \(w_c^\intercal x_i\) small for \emph{all} labels
     \item \(\sum_{j=1}^{d} \sum_{c=1}^{k} w_{jc}^2\) is L2 regularization of \(w\)
 \end{itemize}
-% TODO: multi-label classification
 
 \section{MLE \& MAP}
 
