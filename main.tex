@@ -955,8 +955,6 @@ MLE \& MAP
     \item prior can reflect that complex models are likely to overfit
 \end{itemize}
 
-% TODO: the rest of L25
-
 \section{PCA}
 Objective Function:
 \begin{align*}
@@ -991,8 +989,6 @@ Prediction Phase:
 Trade-off:
 \begin{itemize}
     \item reduce overfitting when \emph{both} W and Z are regularized
-    % TODO: 2016 Final Q8 (d)
-    % TODO: L29 s7a
 \end{itemize}
 PCA is not unique (e.g. \(ZW = (-Z)(-W)\)): \(\because\)
 \begin{itemize}
@@ -1347,6 +1343,9 @@ Three Types of Layers
 Trade-off (width of convolutions): width \(\uparrow \rightarrow E_{train} \downarrow \text{ but } E_{approx} \uparrow\)
 
 \subsection{\emph{Note}}
+Size of Neural Network \\
+\(d\) input features, two hidden layers of size \(a\) and \(b\), and \(k\) outputs \\
+\(da+ab+bk+a+b+k\) \\
 Why Sigmoid for \(h(z_i)\)
 \begin{itemize}
     \item each \(h(z_i\) can be viewed as a binary feature
