@@ -262,6 +262,9 @@ Random Trees
     \item each decision stump considers a randomly-chosen feature
 \end{itemize}
 
+\subsection{\emph{Note}}
+Improve Overfitting Random Forest: depth \(\downarrow \), amount of data \(\uparrow \), \# features \(\downarrow \)
+
 \section{Clustering}
 
 \subsection{K-Means}
@@ -383,7 +386,10 @@ Supervised Outlier Detection \\
 \end{itemize}
 
 \subsection{\emph{Note}}
-Density-Based vs. K-Means:
+Choosing \(k\) for K-Means: Don't use \(E_{train}\) or \(E_{approx}\) since they decrease as \(k\) increases. \\
+K-Means Fails to Find True Clusters: Two clusters are non-convex and not far way from each other. \\
+Effect of Two Features of Different Scales: The clusters would be almost exclusively be based on what is happening with the larger feature. (This is assuming that you don't have a huge variance in the smaller feature.) \\
+Density-Based vs. K-Means
 \begin{itemize}
     \item pros:
     \begin{itemize}
@@ -395,6 +401,11 @@ Density-Based vs. K-Means:
         \item two hyper parameters to set
         \item slower \& more complicated
     \end{itemize}
+\end{itemize}
+Supervised vs Unsupervised Outlier Detection
+\begin{itemize}
+    \item pro: can detect outliers that are very close to normal points
+    \item con: may not detect outliers that look very different than normal points
 \end{itemize}
 
 \section{Regression}
@@ -550,9 +561,9 @@ Choosing step-size
 \end{itemize}
 
 \subsection{\emph{Note}}
-\begin{itemize}
-    \item minibatch size \(\downarrow \) \(\rightarrow \) each iteration is faster, but more iterations needed
-\end{itemize}
+Cost of Polynomial Basis (\(d = 1\)): \(O(np^2+p^3)\) \\
+Regression tree is a good choice when data is the data is generated, or well modeled by a piecewise linear function. In this case, the regression tree allows for a different linear regression to be fit to each sub-function, while the linear least squares model attempts to fit all of the data at once. \\
+Minibatch size \(\downarrow \) \(\rightarrow \) each iteration is faster, but more iterations needed
 
 \section{Feature Selection}
 
@@ -1300,8 +1311,30 @@ Objective Functions, Derivatives, and \(w\)
 \end{itemize}
 \begin{dmath*}
     f(x) = \sum\limits_{i=1}^{n} z_i |w^\intercal x_i - y_i| + \lambda \max_j |w_j|
-    = f(w) = ||Z(Xw - y)||_1 + \lambda ||w||_{\infty}
+    = f(w) = \underbrace{||Z(Xw - y)||_1}_{(Xw-y)^\intercal Z (Xw-y)} + \lambda ||w||_{\infty}
 \end{dmath*}
+Minimizing Quadratic Functions as Linear Systems
+\begin{itemize}
+    \item \(f(w) = \frac{1}{2} ||w-u||^2\)
+    \begin{itemize}
+        \item \(f(w) = \frac{1}{2} ||w||^2 -w^\intercal u + \frac{1}{2} ||u||^2\)
+        \item \(\nabla f(w) = w-v\), so \(w = v\)
+    \end{itemize}
+    \item \(f(w) = \frac{1}{2} ||w||^2 + w^\intercal X^\intercal y^\intercal\)
+    \begin{itemize}
+        \item \(f(w) = \frac{1}{2} w^\intercal I w + w^\intercal X^\intercal y\)
+        \item \(\nabla f(w) = w + X^\intercal y\), so \(w=-X^\intercal y\)
+    \end{itemize}
+    \item \(f(w) = \frac{1}{2} ||Xw-y||^2 + \frac{1}{2} w^\intercal \Lambda w\)
+    \begin{itemize}
+        \item \(\nabla f(w) = X^\intercal X w - X^\intercal y + \Lambda w\), so \((X^\intercal X + \Lambda)w = X^\intercal y\)
+    \end{itemize}
+    \item \(f(w) = \frac{1}{2} \sum\limits_{i=1}^{n} z_i (w^\intercal  x_i - y_i)^2\)
+    \begin{itemize}
+        \item \(f(w) = \frac{1}{2} (Xw-y)^\intercal Z (Xw-y)  = \frac{1}{2} w^\intercal X^\intercal Z X w - w^\intercal X^\intercal Z y + \frac{1}{2} y^\intercal Z y\)
+        \item \(\nabla f(w) = X^\intercal Z X w - X^\intercal Z y\), so \(X^\intercal Z X w = X^\intercal Z y\)
+    \end{itemize}
+\end{itemize}
 Convexity
 \begin{itemize}
     \item \(f''(x) \geq 0 \Rightarrow \) convex
